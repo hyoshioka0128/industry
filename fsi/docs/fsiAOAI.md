@@ -2,8 +2,8 @@
 
 ![Benefits](./ai-overview.png)
 
-This user guide explains the setup and deployment of "Secure and Compliant Generative Azure Open AI".
-The reference implementation has been developed, validated, and proven with several of Microsoft's largest FSI customers, and represent the best practices for the FSI industry to accelerate a safe and secure by-default deployment of Generative Azure Open AI on Microsoft Azure. We will continue to enhance and develop the reference implementation alongside with the overall Azure roadmap, based on proven and validated design patterns with FSI customers at scale.
+This user guide explains the setup and deployment of "Secure and Compliant Generative Azure OpenAI".
+The reference implementation has been developed, validated, and proven with several of Microsoft's largest FSI customers, and represent the best practices for the FSI industry to accelerate a safe and secure by-default deployment of Generative Azure OpenAI on Microsoft Azure. We will continue to enhance and develop the reference implementation alongside with the overall Azure roadmap, based on proven and validated design patterns with FSI customers at scale.
 
 ## Table of Contents
 
@@ -17,25 +17,25 @@ The reference implementation has been developed, validated, and proven with seve
 - [Getting started post deployment](#getting-started-post-deployment)
   - [Azure native RAG on your own data](#azure-native-rag-on-your-own-data)
     - [PowerShell script for RAG enablement](#powershell-script-for-rag-enablement)
-      - [Ingestion job using Azure Open AI, AI Search, and Storage Account](#ingestion-job-using-azure-open-ai-ai-search-and-storage-account)
-      - [Content generation using Azure Open AI API endpoint](#content-generation-using-azure-open-ai-api-endpoint)
+      - [Ingestion job using Azure OpenAI, AI Search, and Storage Account](#ingestion-job-using-azure-open-ai-ai-search-and-storage-account)
+      - [Content generation using Azure OpenAI API endpoint](#content-generation-using-azure-open-ai-api-endpoint)
 
 ---
 
 | Reference Implementation | Description | Deploy | Documentation
 |:----------------------|:------------|--------|--------------|
-| Secure and Compliant Generative AI on Azure | Secure and Compliant Generative AI, aligned with the prescriptive guidance for FSI Landing Zones, ensuring a secure and compliant Azure Open AI workload composition into the landing zones |[![Deploy To Microsoft Cloud](../../docs/deploytomicrosoftcloud.svg)](https://aka.ms/fsiazureai) | [User Guide](./fsiAOAI.md)
+| Secure and Compliant Generative AI on Azure | Secure and Compliant Generative AI, aligned with the prescriptive guidance for FSI Landing Zones, ensuring a secure and compliant Azure OpenAI workload composition into the landing zones |[![Deploy To Microsoft Cloud](../../docs/deploytomicrosoftcloud.svg)](https://aka.ms/fsiazureai) | [User Guide](./fsiAOAI.md)
 
 ## What is Secure and Compliant Generative AI on Azure?
 
-Azure Open AI provides powerful, generative AI capabilities that organizations can access securely over a private network, use their own customer-managed keys to encrypt the data, and enable sophisitcated monitoring and observability of their AI workloads, while managing authentication and authorization centrally. This reference implementation provides a secure and compliant deployment of Azure Open AI, and the recommended configuration is aligned with the recommended Azure policies provided by FSI Landing Zones for the Azure services in this workload composition.
+Azure OpenAI provides powerful, generative AI capabilities that organizations can access securely over a private network, use their own customer-managed keys to encrypt the data, and enable sophisitcated monitoring and observability of their AI workloads, while managing authentication and authorization centrally. This reference implementation provides a secure and compliant deployment of Azure OpenAI, and the recommended configuration is aligned with the recommended Azure policies provided by FSI Landing Zones for the Azure services in this workload composition.
 
-Further, it allows organizations to deploy the Azure Open AI instance(s) to the regions of their choice, and where capacity exists for the respective model deployments, while honoring the connectivity and networking requirements of the organization.
+Further, it allows organizations to deploy the Azure OpenAI instance(s) to the regions of their choice, and where capacity exists for the respective model deployments, while honoring the connectivity and networking requirements of the organization.
 
-The Secure and Compliant Generative Azure Open AI includes the following Azure services:
+The Secure and Compliant Generative Azure OpenAI includes the following Azure services:
 
 * Cognitive Services
-  * Azure Open AI
+  * Azure OpenAI
 * Private Endpoint
 * Network Security Groups
   * Application Security Groups
@@ -60,35 +60,35 @@ Optionally, you can also get started with the initial Gen AI use case (e.g., Azu
 
 ## Alignment with FSI Landing Zones
 
-FSI Landing Zones on Microsoft Azure provides a secure-by-default architecture and deployment guidance for Azure services, and the Secure and Compliant Generative Azure Open AI reference implementation is aligned with the recommended Azure policies provided by FSI Landing Zones for the Azure services in this workload composition.
+FSI Landing Zones on Microsoft Azure provides a secure-by-default architecture and deployment guidance for Azure services, and the Secure and Compliant Generative Azure OpenAI reference implementation is aligned with the recommended Azure policies provided by FSI Landing Zones for the Azure services in this workload composition.
 
-All Azure policies in FSI Landing Zones is [documented in this article](./fsiPolicies.md) which provides a detailed view for all the policies per Azure service. You can assess them per Azure Service and map to the services included in the Secure and Compliant Generative Azure Open AI reference implementation.
+All Azure policies in FSI Landing Zones is [documented in this article](./fsiPolicies.md) which provides a detailed view for all the policies per Azure service. You can assess them per Azure Service and map to the services included in the Secure and Compliant Generative Azure OpenAI reference implementation.
 
 A few examples:
 
-1. It is recommended to deploy Azure Open AI using a private endpoint, and not expose the service over the public internet. This is enforced by the Azure Policy "Cognitive Services accounts should disable public network access" documented in this section [Azure Open AI - Private Endpoint](./fsiPolicies.md#azure-open-ai---private-endpoint).
-2. It is also recommended to enable Azure RBAC for Azure Open AI, so both the level of access, and what type of access is granted to the service can be controlled centrally. This is enforced by the Azure Policy "Configure Cognitive Services accounts to disable local authentication methods".
+1. It is recommended to deploy Azure OpenAI using a private endpoint, and not expose the service over the public internet. This is enforced by the Azure Policy "Cognitive Services accounts should disable public network access" documented in this section [Azure OpenAI - Private Endpoint](./fsiPolicies.md#azure-open-ai---private-endpoint).
+2. It is also recommended to enable Azure RBAC for Azure OpenAI, so both the level of access, and what type of access is granted to the service can be controlled centrally. This is enforced by the Azure Policy "Configure Cognitive Services accounts to disable local authentication methods".
 3. Lastly, it is recommended to use a customer-managed key to encrypt the data, hence an Azure Key Vault is required, as well as several additional Azure policies to ensure the correct configuration of the Key Vault. This is enforced by the Azure Policy "Cognitive Services accounts should enable data encryption with a customer-managed key".
 
 ## Deploy for PoC and testing purposes
 
-Although the reference implementation is tailored for the FSI industry, it can be used by any organization that requires a secure and compliant deployment of Azure Open AI. The reference implementation is designed to be deployed in a single Azure region, in a subscription where the virtual network with a dedicated subnet has been created upfront, to be used for the Private Endpoint. However, you can toggle any of the options to deploy the Azure Open AI instance(s) to the regions of your choice, and where capacity exists for the respective model deployments, while honoring the connectivity and networking requirements of the organization. For PoC and testing, you may want to quickly validate a use-case without requiring private connectivity, or monitoring enabled, and the reference implementation provides the flexibility to enable or disable these features as needed.
+Although the reference implementation is tailored for the FSI industry, it can be used by any organization that requires a secure and compliant deployment of Azure OpenAI. The reference implementation is designed to be deployed in a single Azure region, in a subscription where the virtual network with a dedicated subnet has been created upfront, to be used for the Private Endpoint. However, you can toggle any of the options to deploy the Azure OpenAI instance(s) to the regions of your choice, and where capacity exists for the respective model deployments, while honoring the connectivity and networking requirements of the organization. For PoC and testing, you may want to quickly validate a use-case without requiring private connectivity, or monitoring enabled, and the reference implementation provides the flexibility to enable or disable these features as needed.
 
 ## Architecture and scale-out considerations
 
 The Secure and Compliant Generative AI on Azure reference implementation is designed to be deployed in a single Azure region, in a subscription where the virtual network with a dedicated subnet has been created upfront, to be used for the Private Endpoint. 
 
-![Azure Open AI workload composition in a compliant corp connected landing zone](./aoai.png)
+![Azure OpenAI workload composition in a compliant corp connected landing zone](./aoai.png)
 
-The diagram above shows an example where the Secure and Compliant Generative Azure Open AI is being deployed to a compliant, corp connected landing zone, where all services are connected via private endpoint to the virtual network. The virtual network is connected to the hub virtual network via VNet peering, and the hub virtual network is connected to on-premises network via ExpressRoute.
+The diagram above shows an example where the Secure and Compliant Generative Azure OpenAI is being deployed to a compliant, corp connected landing zone, where all services are connected via private endpoint to the virtual network. The virtual network is connected to the hub virtual network via VNet peering, and the hub virtual network is connected to on-premises network via ExpressRoute.
 
-In the most simplistic form, users - assuming Azure RBAC has been granted to the Open AI instance, and model deployment has completed, can interact with the Azure Open AI API over the private endpoint, and the Azure Open AI instance will respond with the generated text. If any data must be provided, the storage account is encrypted using customer-managed keys, and the keys are stored in a Key Vault. The Key Vault is also used to store the customer-managed keys for the Azure Open AI instance.
+In the most simplistic form, users - assuming Azure RBAC has been granted to the Open AI instance, and model deployment has completed, can interact with the Azure OpenAI API over the private endpoint, and the Azure OpenAI instance will respond with the generated text. If any data must be provided, the storage account is encrypted using customer-managed keys, and the keys are stored in a Key Vault. The Key Vault is also used to store the customer-managed keys for the Azure OpenAI instance.
 
 ### Design considerations
 
-* To scale out the Azure Open AI instance, there's a few things to consider:
+* To scale out the Azure OpenAI instance, there's a few things to consider:
 
-    * The limit of Azure Open AI resources per region per Azure subscription is 30
+    * The limit of Azure OpenAI resources per region per Azure subscription is 30
     * The regional quota (soft) limits (token per minutes) per Azure subscription for GPT-35-Turbo and GPT-4 are as follows: 
     * GPT-35-turbo: 
         * eastus, southcentralus, westeurope, francecentral, uksouth: 240k
@@ -103,35 +103,35 @@ In the most simplistic form, users - assuming Azure RBAC has been granted to the
         * eastus, southcentralus, westeurope, francecentral: 40k
         * northcentralus, australiaeast, eastus2, canadaeast, japaneast, uksouth, swedencentral, switzerlandnorth: 80k
 
-* A single Azure Open AI instance may be suitable for a small PoC by independent application teams. 
-* If a model in an Azure Open AI instance is shared by multiple teams, it is a "first come - first served" behavior, and the application must cater for retry logic and error handling.
+* A single Azure OpenAI instance may be suitable for a small PoC by independent application teams. 
+* If a model in an Azure OpenAI instance is shared by multiple teams, it is a "first come - first served" behavior, and the application must cater for retry logic and error handling.
 * Quota is shared between all instances and models in the same region and subscription.
 
 ### Design recommendations
 
-* If a model in an Azure Open AI instance is shared by multiple teams, and the model is being used by multiple applications, it is recommended to deploy a dedicated Azure Open AI instance per application, and load balance the requests across the instances. This will provide separation at instance level, and the application layer is responsible for load balancing, retry logic, and error handling if needed.
-* To scale out Azure Open AI with multiple instances, it is recommended to deploy the instances across dedicated subscriptions, across dedicated regions. The quota is per region per subscription, and the regional quota is soft limit, and can be increased by contacting Microsoft support.
-* Use centralized RBAC (Azure AD) and disable API key access to Azure Open AI, to avoid the need to manage API keys per application, and to ensure that the access to the Azure Open AI instance is centrally managed and controlled.
+* If a model in an Azure OpenAI instance is shared by multiple teams, and the model is being used by multiple applications, it is recommended to deploy a dedicated Azure OpenAI instance per application, and load balance the requests across the instances. This will provide separation at instance level, and the application layer is responsible for load balancing, retry logic, and error handling if needed.
+* To scale out Azure OpenAI with multiple instances, it is recommended to deploy the instances across dedicated subscriptions, across dedicated regions. The quota is per region per subscription, and the regional quota is soft limit, and can be increased by contacting Microsoft support.
+* Use centralized RBAC (Azure AD) and disable API key access to Azure OpenAI, to avoid the need to manage API keys per application, and to ensure that the access to the Azure OpenAI instance is centrally managed and controlled.
 * Use customer-managed keys to encrypt the data, and store the keys in a Key Vault. This will ensure that the data is encrypted at rest, and the keys are stored in a secure location, and can be rotated as needed.
 * Use centralized RBAC (Azure AD) for the Key Vault to ensure that the access to the Key Vault is centrally managed and controlled.
-* Empower the application to use dedicated, application-centric Log Analytics Workspace(s) for the Azure Open AI instance(s) and requisite components such as Key Vault, Storage Accounts, NSGs etc., to ensure that the logs are stored in a secure location, and can be accessed by the application team as needed, and where they can build out their own observability using dashboards, workbooks, and alerts.
-* Use Azure Policy to ensure that the Azure Open AI instance(s) are deployed with the right configuration, and that the configuration is maintained over time. For example, it is recommended to deploy Azure Open AI using a private endpoint, and not expose the service over the public internet. This is enforced by the Azure Policy "Cognitive Services accounts should disable public network access" documented in this section [Azure Open AI - Private Endpoint](/docs/fsiPolicies.md#azure-open-ai---private-endpoint).
+* Empower the application to use dedicated, application-centric Log Analytics Workspace(s) for the Azure OpenAI instance(s) and requisite components such as Key Vault, Storage Accounts, NSGs etc., to ensure that the logs are stored in a secure location, and can be accessed by the application team as needed, and where they can build out their own observability using dashboards, workbooks, and alerts.
+* Use Azure Policy to ensure that the Azure OpenAI instance(s) are deployed with the right configuration, and that the configuration is maintained over time. For example, it is recommended to deploy Azure OpenAI using a private endpoint, and not expose the service over the public internet. This is enforced by the Azure Policy "Cognitive Services accounts should disable public network access" documented in this section [Azure OpenAI - Private Endpoint](/docs/fsiPolicies.md#azure-open-ai---private-endpoint).
 
 ## Deployment instructions
 
-This section will describe how to deploy the "Secure and Compliant Generative Azure Open AI" reference implementation into an Azure subscription.
+This section will describe how to deploy the "Secure and Compliant Generative Azure OpenAI" reference implementation into an Azure subscription.
 
 ### Pre-requisites
 
-The "Secure and Compliant Generative Azure Open AI" reference implementation is deployed at the *subscription* scope in Azure, and requires a few pre-requisites to be in place before you can deploy the reference implementation:
+The "Secure and Compliant Generative Azure OpenAI" reference implementation is deployed at the *subscription* scope in Azure, and requires a few pre-requisites to be in place before you can deploy the reference implementation:
 
-- Ideally use a dedicated Azure subscription, where you have submitted the subscription ID into the form for [requesting access to Azure Open AI](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUOFA5Qk1UWDRBMjg0WFhPMkIzTzhKQ1dWNyQlQCN0PWcu). This will ensure that the subscription is enabled for Azure Open AI, including GTP-4.
-- Once the subscription has been approved, you must request access to customer-managed key (CMK) and bring-your-own-storage (BYOS) for Azure Open AI. This is done by submitting another request using [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR65c5WORsv5NtSDPjRrSCMhUNDZJUERRVVVDME4xNDVNRjEwMTNZV1dHSSQlQCN0PWcu)
+- Ideally use a dedicated Azure subscription, where you have submitted the subscription ID into the form for [requesting access to Azure OpenAI](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUOFA5Qk1UWDRBMjg0WFhPMkIzTzhKQ1dWNyQlQCN0PWcu). This will ensure that the subscription is enabled for Azure OpenAI, including GTP-4.
+- Once the subscription has been approved, you must request access to customer-managed key (CMK) and bring-your-own-storage (BYOS) for Azure OpenAI. This is done by submitting another request using [this form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR65c5WORsv5NtSDPjRrSCMhUNDZJUERRVVVDME4xNDVNRjEwMTNZV1dHSSQlQCN0PWcu)
 - The user who's deploying the reference implementation must be *Owner* of the subscription where the reference implementation will be deployed, as the deployment will be making role assignments for the managed identities that are created.
 
 ## Step by step deployment guidance
 
-This section will explain the deployment experience and the options provided for the "Secure and Compliant Generative Azure Open AI" reference implementation.
+This section will explain the deployment experience and the options provided for the "Secure and Compliant Generative Azure OpenAI" reference implementation.
 
 Once the pre-requisites have been completed, you can deploy the reference implementation using this link [*Deploy to Microsoft Cloud*](https://aka.ms/fsiazureai), it will start the deployment experience in the Azure portal into your default Azure tenant. In case you have access to multiple tenants, ensure you are selecting the right one.
 
@@ -144,18 +144,18 @@ On the first page, select the *Region*. This region will primarily be used to pl
 
 ### 2 - Key Vault Configuration
 
-Configure the Key Vault that will be used to store the keys used by the storage account for encryption at rest, as well as the Azure Open AI service. It is recommended to leave with the default recommendations as it relates to the security and compliance recommendations. If needed, you can opt out of the recommendations, assuming you are aware of the implications.
+Configure the Key Vault that will be used to store the keys used by the storage account for encryption at rest, as well as the Azure OpenAI service. It is recommended to leave with the default recommendations as it relates to the security and compliance recommendations. If needed, you can opt out of the recommendations, assuming you are aware of the implications.
 
 ![Key Vault](./ai-step2.png)
 
 In the networking section when deploying using a Private Endpoint, you must provide the resourceId of an existing subnet in the same region where you are deploying into. 
-If you want to deploy the Azure Open AI workloads into a different region vs where you have your virtual network, select the region for the Private Endpoint (i.e., "Deploy the Private Endpoint for Key Vault into the same region as the Key Vault" option must be set to "No", and the regional parameter will appear in the portal)
+If you want to deploy the Azure OpenAI workloads into a different region vs where you have your virtual network, select the region for the Private Endpoint (i.e., "Deploy the Private Endpoint for Key Vault into the same region as the Key Vault" option must be set to "No", and the regional parameter will appear in the portal)
 
 ![Key Vault](./ai-step2a.png)
 
 ### 3 - Storage Configuration
 
-This page will create and configure the storage account that will be used in conjunction with the Key Vault and the Azure Open AI service. This enables you to bring your own data that you can use to fine-tune and train the Azure Open AI service for enterprise-specific contexts, fully encrypted at rest using a customer-managed key.
+This page will create and configure the storage account that will be used in conjunction with the Key Vault and the Azure OpenAI service. This enables you to bring your own data that you can use to fine-tune and train the Azure OpenAI service for enterprise-specific contexts, fully encrypted at rest using a customer-managed key.
 
 Provide a key name, and the resourceId for an existing subnet when deploying with Private Endpoint. Same as with the Key Vault configuration, if you are deploying to a different region vs where the virtual network is created, select a different region for the private endpoint.
 
@@ -163,17 +163,17 @@ Provide a key name, and the resourceId for an existing subnet when deploying wit
 
 ![Storage Account](./ai-step4.png)
 
-### 4 - Azure Open AI Configuration
+### 4 - Azure OpenAI Configuration
 
-Configure the Azure Open AI instance that will be created, by providing a name for the customer-managed key, and the resourceId to the subnet where the Private Endpoint will be deployed. Same as with the Key Vault and Storage Account configuration, if you are deploying to a different region vs where the virtual network is created, select a different region for the private endpoint.
+Configure the Azure OpenAI instance that will be created, by providing a name for the customer-managed key, and the resourceId to the subnet where the Private Endpoint will be deployed. Same as with the Key Vault and Storage Account configuration, if you are deploying to a different region vs where the virtual network is created, select a different region for the private endpoint.
 
-![Azure Open AI](./ai-step5.png)
+![Azure OpenAI](./ai-step5.png)
 
-![Azure Open AI](./ai-step6.png)
+![Azure OpenAI](./ai-step6.png)
 
 ### 5 - Model Deployment
 
-On this page, you can optionally select to deploy an available model to your Azure Open AI instance, subject to the available models in the region you have selected. Should there be any capacity constraints with the selected model, the validation API will catch that and inform you before you can submit the deployment.
+On this page, you can optionally select to deploy an available model to your Azure OpenAI instance, subject to the available models in the region you have selected. Should there be any capacity constraints with the selected model, the validation API will catch that and inform you before you can submit the deployment.
 
 ![Model Deployment](./ai-step7.png)
 
@@ -189,7 +189,7 @@ Additionally, you can configure content filtering and advanced filtering setting
 
 ### 5 - Use Cases and Additional Services
 
-On this page, you can optionally select your initial use case, and additional services that you may want to deploy alongside the Azure Open AI instance. The list of services will dynamically appear based on the use case you have selected. Each Azure service will provide similar configuration options as the previous pages, and you can configure them as needed in order to meet your security and compliance needs for the overall architecture and setup.
+On this page, you can optionally select your initial use case, and additional services that you may want to deploy alongside the Azure OpenAI instance. The list of services will dynamically appear based on the use case you have selected. Each Azure service will provide similar configuration options as the previous pages, and you can configure them as needed in order to meet your security and compliance needs for the overall architecture and setup.
 
 ![Use Cases and Additional Services](./ai-step11.png)
 
@@ -209,23 +209,23 @@ If you are interested in getting started with the initial Gen AI use case (e.g.,
 
 1. Upload files, such as text, images, and videos, to the storage account that you have created as part of the deployment, subject to the configuration you have selected (e.g., the setup highly recommends using Azure RBAC, disabling SAS tokens, and using customer-managed keys for encryption at rest, but if you have selected anything differently, you need to cater for that while getting the data into your storage account).
 
-2. Use the Azure Open AI ingestion API to create one or more indexes in Azure AI Search, to start indexing the data that you have uploaded to the storage account, and make it available for the Azure Open AI instance to enable typical RAG use cases.
+2. Use the Azure OpenAI ingestion API to create one or more indexes in Azure AI Search, to start indexing the data that you have uploaded to the storage account, and make it available for the Azure OpenAI instance to enable typical RAG use cases.
 
-3. Use the Azure Open AI API to interact with the Azure Open AI instance, and start generating content based on the data that you have uploaded to the storage account, and indexed in Azure AI Search.
+3. Use the Azure OpenAI API to interact with the Azure OpenAI instance, and start generating content based on the data that you have uploaded to the storage account, and indexed in Azure AI Search.
 
 ### PowerShell script for RAG enablement
 
-The following PowerShell scripts can be used to 1) start an ingestion job on Azure Open AI to ingest the data from the storage account into Azure AI Search, and 2) access the Azure Open AI API to start generating content based on the data that you have ingested.
+The following PowerShell scripts can be used to 1) start an ingestion job on Azure OpenAI to ingest the data from the storage account into Azure AI Search, and 2) access the Azure OpenAI API to start generating content based on the data that you have ingested.
 
-#### Ingestion job using Azure Open AI, AI Search, and Storage Account
+#### Ingestion job using Azure OpenAI, AI Search, and Storage Account
 
-Modify this script to provide the necessary values for the Azure Open AI endpoint, the embedding deployment name, the ingestion job name, the storage account endpoint, the storage container name, the storage resource ID, and the Azure AI Search endpoint.
+Modify this script to provide the necessary values for the Azure OpenAI endpoint, the embedding deployment name, the ingestion job name, the storage account endpoint, the storage container name, the storage resource ID, and the Azure AI Search endpoint.
 
 ```powershell
 
-# Ingestion job using Azure Open AI, AI Search, and Storage Account. The following snippet assumes Managed Identity is properly configured and has the necessary permissions to access the resources, and that the user has Open AI contributor role on the Azure Open AI resource.
+# Ingestion job using Azure OpenAI, AI Search, and Storage Account. The following snippet assumes Managed Identity is properly configured and has the necessary permissions to access the resources, and that the user has Open AI contributor role on the Azure OpenAI resource.
 
-# Azure Open AI configuration
+# Azure OpenAI configuration
 
 $AzureOpenAIEndpoint = ""
 $EmbeddingDeploymentName = ""
@@ -285,15 +285,15 @@ $GetResponse = Invoke-WebRequest @GetStatusRequest
 
 ```
 
-#### Content generation using Azure Open AI API endpoint
+#### Content generation using Azure OpenAI API endpoint
 
-Modify this script to provide the necessary values for the Azure Open AI endpoint, the embedding deployment name, and the model name.
+Modify this script to provide the necessary values for the Azure OpenAI endpoint, the embedding deployment name, and the model name.
 
 ```powershell
 
-#T he following snippet assumes Managed Identity is properly configured and has the necessary permissions to access the resources, and that the user has Open AI reader role on the Azure Open AI resource.
+#T he following snippet assumes Managed Identity is properly configured and has the necessary permissions to access the resources, and that the user has Open AI reader role on the Azure OpenAI resource.
 
-# Azure Open AI configuration
+# Azure OpenAI configuration
 
 $AzureOpenAIEndpoint = ""
 $DeploymentName = ""
@@ -309,7 +309,7 @@ $IndexName = ""
 $TokenRequest = Get-AzAccessToken -ResourceUrl "https://cognitiveservices.azure.com"
 $MyToken = $TokenRequest.token
 
-# Form the request body towards the Azure Open AI API endpoint, with AzureCognitiveSearch added as dataSource for RAG
+# Form the request body towards the Azure OpenAI API endpoint, with AzureCognitiveSearch added as dataSource for RAG
 $Body = @"
 {
 "dataSources": [
